@@ -1,7 +1,12 @@
+'use strict';
+
+// tag::vars[]
 const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
+// end::vars[]
 
+// tag::app[]
 class App extends React.Component {
 
     constructor(props) {
@@ -21,11 +26,13 @@ class App extends React.Component {
     )
     }
 }
+// end::app[]
 
+// tag::city-list[]
 class CityAirList extends React.Component{
     render() {
         const cityAirs = this.props.cityAirs.map(cityAir =>
-            <CityAir key={cityAir._links.self.href} cityAir={cityAir}/>
+            <CityAir key={cityAir._links.self.href} cityAirs={cityAir}/>
         );
         return (
             <table>
@@ -35,27 +42,32 @@ class CityAirList extends React.Component{
                     <th>Air Quality Index</th>
                     <th>PM10</th>
                 </tr>
-                {cityAirs}
+                {/*cityAirs*/}
                 </tbody>
             </table>
         )
     }
 }
+// end::city-list[]
 
+// tag::cityAir[]
 class CityAir extends React.Component{
     render() {
         //Shouldnt we get the variables
         return (
             <tr>
                 <td>{this.props.cityAirs.name}</td>
-                <td>{this.props.cityAirs.aqi}</td>
-                <td>{this.props.cityAirs.pm10}</td>
+                <td>{this.props.cityAirs.name}</td>
+                <td>{this.props.cityAirs.name}</td>
             </tr>
         )
     }
 }
+// end::cityAir[]
 
+// tag::render[]
 ReactDOM.render(
     <App />,
     document.getElementById('react')
 )
+// end::render[]
