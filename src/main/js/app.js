@@ -42,7 +42,7 @@ class CityAirList extends React.Component{
                     <th>Air Quality Index</th>
                     <th>PM10</th>
                 </tr>
-                {/*cityAirs*/}
+                {cityAirs}
                 </tbody>
             </table>
         )
