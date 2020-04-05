@@ -44,6 +44,7 @@ class CityAirList extends React.Component{
 
 class CityAir extends React.Component{
     render() {
+        //Shouldnt we get the variables
         return (
             <tr>
                 <td>{this.props.cityAirs.name}</td>
@@ -53,3 +54,8 @@ class CityAir extends React.Component{
         )
     }
 }
+
+ReactDOM.render(
+    <App />,
+    document.getElementById('react')
+)
