@@ -53,12 +53,11 @@ class CityAirList extends React.Component{
 // tag::cityAir[]
 class CityAir extends React.Component{
     render() {
-        //Shouldnt we get the variables
         return (
             <tr>
                 <td>{this.props.cityAirs.name}</td>
-                <td>{this.props.cityAirs.name}</td>
-                <td>{this.props.cityAirs.name}</td>
+                <td>{this.props.cityAirs.aqi}</td>
+                <td>{this.props.cityAirs.pm10}</td>
             </tr>
         )
     }
