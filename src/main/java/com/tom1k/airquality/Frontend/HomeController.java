@@ -1,14 +1,20 @@
 package com.tom1k.airquality.Frontend;
 
 import com.tom1k.airquality.Backend.DatabaseLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class HomeController {
 
+    @Autowired
     private DatabaseLoader cityService;
 
     @RequestMapping(value = "/")
@@ -16,9 +22,11 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value = "/search")
+    @GetMapping(path="/search")
     public String search() throws IOException {
-        return this.cityService.fetchCityData("porto");
+        return cityService.fetchCityData("porto");
     }
 
 }
+
+
