@@ -45,63 +45,24 @@ export default class Dashboard extends React.Component {
                     marginTop:100,
                     backgroundColor:'rgba(0,0,0,0)',
                     fontWeight:'medium',
+                    position: 'absolute', left: '50%', top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    padding: 10,
                 }}
             >
                 <Container style={{display:'flex',flex:1,flexDirection:'column',maringTop:50}}>
                     <Row style={{alignContent:'center',justifyContent:'center',border:10,borderColor:'white'}}>
-                        <Text style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', fontSize:30}}>Analytics for streets in:</Text>
-                        <ReactSearchBox
-                            placeholder="Search city"
-                            value="Ilhavo"
-                            data={this.state.streets}
-                            color={'black'}
-                            style={{fontWeight:'bold',width:10}}
-                            inputBoxFontColor={'black'}
-                            dropDownHoverColor={'rgba(0,255,255,0.1)'}
-                            onSelect={record => this.changeStreet(record)}
-                        />
+                        <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', fontSize:30}}>Analytics for city:</p>
                     </Row>
-                    <Text style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}>Street name: </Text>
-                    <ReactSearchBox
-                        placeholder="Search street"
-                        value="Travessa das Leirinhas"
-                        data={this.state.dataSource}
-                        color={'black'}
-                        style={{fontWeight:'bold',width:40}}
-                        inputBoxFontColor={'black'}
-                        dropDownHoverColor={'rgba(0,255,255,0.1)'}
-                        onSelect={record => this.changeStreetDisplayed(record)}
-                    />
+                    <p style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}><span>City name: </span> <input name="text" type="text" placeholder="Search" /></p>
 
-                    <Row style={{flex:1, alignContent:'space-between',justifyContent:'space-between'}}>
-                        <Container style={{flex:1, alignContent:'center',justifyContent:'center'}}>
-                            <Text style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}>Start Date: </Text>
-                            <DatePicker
-                                selected={this.state.begin_date_cal}
-                                onChange={this.handleChangeStart}
-                                maxDate={new Date()}
-                            />
-                        </Container>
-                        <Container style={{flex:1, alignContent:'center',justifyContent:'center'}}>
-                            <Text style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}>End Date: </Text>
-                            <DatePicker
-                                selected={this.state.end_date_cal}
-                                onChange={this.handleChangeEnd}
-                                maxDate={new Date()}
-                            />
-                        </Container>
-                        <Container style={{flex:1, alignContent:'center',justifyContent:'center'}}>
-                            <Text style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}>Week Day: </Text>
-                            <Dropdown options={this.state.options} onChange={(day) => this.changeDay(day)} value={this.state.dayofweek} placeholder="Select a day" />
 
-                        </Container>
-                    </Row>
-                    <Text style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', marginTop:80, textAlign:'center',fontSize:24}}>{this.state.street_name}</Text>
+                    <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', marginTop:80, textAlign:'center',fontSize:24}}>{'Cidade X'}</p>
                     <div style={{display:'flex', flexDirection:'row' , justifyContent:'space-between',alignContent:'space-between'}}>
-                        <Stats style={{flex:1}} stat_name="Nº of accidents" number={this.state.dataSourceStats[0].total_accident}/>
-                        <Stats style={{flex:1}} stat_name="Roadblock total time" number={(this.state.dataSourceStats[0].road_block.total_time.toFixed()).toString() + "H"}/>
-                        <Stats style={{flex:1}} stat_name="Nº of roadblocks" number={this.state.dataSourceStats[0].road_block.times}/>
-                        <Stats style={{flex:1}} stat_name="Times Congested" number={this.state.dataSourceStats[0].transit_count}/>
+                        <Stats style={{flex:1}} stat_name="Nº of accidents" number={3}/>
+                        <Stats style={{flex:1}} stat_name="Roadblock total time" number={3}/>
+                        <Stats style={{flex:1}} stat_name="Nº of roadblocks" number={4}/>
+                        <Stats style={{flex:1}} stat_name="Times Congested" number={5}/>
 
                     </div>
                 </Container>
