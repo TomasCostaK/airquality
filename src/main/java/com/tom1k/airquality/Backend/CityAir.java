@@ -2,21 +2,25 @@ package com.tom1k.airquality.Backend;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
 public class CityAir {
     private @Id @GeneratedValue Long id;
+    @Size(min=3, max=25)
     private String name;
     private int aqi;
     // perceber como integrar as geo coords
     private double pm10;
+    private String dominantpol;
 
     private CityAir(){}
 
-    public CityAir(String name, int aqi, double pm10){
+    public CityAir(String name, int aqi, double pm10, String dominantpol){
         this.name = name;
         this.aqi = aqi;
         this.pm10 = pm10;
+        this.dominantpol = dominantpol;
     }
 
     public Long getId() {
@@ -51,13 +55,22 @@ public class CityAir {
         this.pm10 = pm10;
     }
 
+    public String getDominantpol() {
+        return dominantpol;
+    }
+
+    public void setDominantpol(String dominantpol) {
+        this.dominantpol = dominantpol;
+    }
+
     @Override
     public String toString() {
-        return "CityAir : {" +
+        return "CityAir{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", aqi=" + aqi +
-                ", iaqi=" + pm10 +
+                ", pm10=" + pm10 +
+                ", dominantpol='" + dominantpol + '\'' +
                 '}';
     }
 }
