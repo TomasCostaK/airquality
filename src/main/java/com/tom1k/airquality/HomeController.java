@@ -1,6 +1,6 @@
-package com.tom1k.airquality.Frontend;
+package com.tom1k.airquality;
 
-import com.tom1k.airquality.Backend.DatabaseLoader;
+import com.tom1k.airquality.DatabaseLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

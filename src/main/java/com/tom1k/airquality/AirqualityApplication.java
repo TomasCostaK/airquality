@@ -1,4 +1,4 @@
-package com.tom1k.airquality.Backend;
+package com.tom1k.airquality;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.tom1k.airquality.Backend;
+package com.tom1k.airquality;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,4 +1,4 @@
-package com.tom1k.airquality.Backend;
+package com.tom1k.airquality;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
