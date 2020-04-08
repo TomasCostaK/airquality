@@ -1,5 +1,7 @@
 'use strict';
 
+import Dashboard from './Dashboard';
+
 // tag::vars[]
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -21,8 +23,7 @@ class App extends React.Component {
     }
 
     render() {
-        return (
-            <CityAirList cityAirs={this.state.cityAirs}/>
+        return ( <Dashboard />
     )
     }
 }
