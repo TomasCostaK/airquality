@@ -54,7 +54,7 @@ export default class Dashboard extends React.Component {
                     <Row style={{alignContent:'center',justifyContent:'center',border:10,borderColor:'white'}}>
                         <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', fontSize:30}}>Analytics for city:</p>
                     </Row>
-                    <p style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}><span>City name: </span> <input name="text" type="text" placeholder="Search" /></p>
+                    <p style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}><span>City name: </span> <input name="text" type="text" placeholder="Search" /><button>Search</button></p>
 
 
                     <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', marginTop:80, textAlign:'center',fontSize:24}}>{'Cidade X'}</p>
