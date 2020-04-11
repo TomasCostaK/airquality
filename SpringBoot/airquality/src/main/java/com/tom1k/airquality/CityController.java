@@ -15,4 +15,40 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class CityController {
 
+    @Autowired
+    private CityService cityService;
+
+    @PostMapping("/search")
+    public City save(@RequestBody City city) {
+        cityService.save(city);
+        return city;
+    }
+
+    @GetMapping("/search/{id}")
+    public City get(@PathVariable int id) {
+        return cityService.get(id);
+    }
+
+    @GetMapping("/search/{name}")
+    public City get(@PathVariable String name) {
+        return cityService.get(name);
+    }
+
+    @GetMapping("/cities")
+    public List<City> get() {
+        return cityService.get();
+    }
+
+    @DeleteMapping("/search/{id}")
+    public String delete(@PathVariable int id) {
+        cityService.delete(id);
+        return "City removed with id "+id;
+    }
+
+    @PutMapping("/search")
+    public City update(@RequestBody City employee) {
+        cityService.save(employee);
+        return employee;
+    }
+
 }
