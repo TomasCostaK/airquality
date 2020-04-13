@@ -41,7 +41,6 @@ export default class Dashboard extends React.Component {
                 className=""
                 data-parallax={true}
                 style={{
-                    marginTop:100,
                     backgroundColor:'rgba(0,0,0,0)',
                     fontWeight:'medium',
                     position: 'absolute', left: '50%', top: '50%',
@@ -49,7 +48,7 @@ export default class Dashboard extends React.Component {
                     padding: 10,
                 }}
             >
-                <Container style={{display:'flex',flex:1,flexDirection:'column',maringTop:50}}>
+                <Container style={{display:'flex',flex:1,flexDirection:'column',maringTop:30}}>
                     <Row style={{alignContent:'center',justifyContent:'center',border:10,borderColor:'white'}}>
                         <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', fontSize:30}}>Analytics for city:</p>
                     </Row>
@@ -57,11 +56,11 @@ export default class Dashboard extends React.Component {
 
 
                     <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', marginTop:80, textAlign:'center',fontSize:24}}>{'Cidade X'}</p>
-                    <div style={{display:'flex', flexDirection:'row' , justifyContent:'space-between',alignContent:'space-between'}}>
-                        <Stats style={{flex:1}} stat_name="Nº of accidents" number={3}/>
-                        <Stats style={{flex:1}} stat_name="Roadblock total time" number={3}/>
-                        <Stats style={{flex:1}} stat_name="Nº of roadblocks" number={4}/>
-                        <Stats style={{flex:1}} stat_name="Times Congested" number={5}/>
+                    <div style={{display:'flex',flex:1, flexDirection:'row' , justifyContent:'space-between',alignContent:'space-between'}}>
+                        <Stats style={{flex:1}} stat_name="Average Quality Index" number={3}/>
+                        <Stats style={{flex:1}} stat_name="Dominent Pol" number={3}/>
+                        <Stats style={{flex:1}} stat_name="PM2.5" number={4}/>
+                        <Stats style={{flex:1}} stat_name="PM1.0" number={5}/>
 
                     </div>
                 </Container>
