@@ -55,7 +55,6 @@ public class CityDAOImpl implements CityDAO {
             return city;
         }catch (NoResultException e) {
             //Call à api
-            System.out.println(e);
             System.out.println("City not on Cache, fetching.");
 
             //If the code didnt have in cache, we must run a call for our api and then return the city we have created
@@ -90,7 +89,6 @@ public class CityDAOImpl implements CityDAO {
             in.close();
 
             // print result
-            System.out.println(response.toString());
 
             //Parse to JSON
             JSONObject json_obj = new JSONObject(response.toString());
@@ -105,7 +103,6 @@ public class CityDAOImpl implements CityDAO {
                 pm25 = 0;
                 pm10 = 0;
             }
-            System.out.println(pm10);
 
             //Chamar
             City city_json = new City();
