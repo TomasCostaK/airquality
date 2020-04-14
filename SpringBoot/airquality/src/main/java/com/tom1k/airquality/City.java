@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_city")
 public class City {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -29,6 +30,7 @@ public class City {
 
     @Column
     private String dominentpol;
+
 
     @Override
     public String toString() {
