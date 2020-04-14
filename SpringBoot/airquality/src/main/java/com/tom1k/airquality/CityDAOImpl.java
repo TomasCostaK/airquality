@@ -65,6 +65,7 @@ public class CityDAOImpl implements CityDAO {
             }
             //The database should clear itself to keep fewer items in cache
         }
+        //return null caso nao haja cidade na API
         return city;
     }
 
