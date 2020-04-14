@@ -12,8 +12,8 @@ public class CityServiceImpl implements CityService{
 
     @Transactional
     @Override
-    public List<City> get() {
-        return cityDAO.get();
+    public List<City> getCities() {
+        return cityDAO.getCities();
     }
 
     //aqui verificar em cache primeiro

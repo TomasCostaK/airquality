@@ -29,19 +29,13 @@ public class CityDAOImpl implements CityDAO {
     private EntityManager entityManager;
 
     @Override
-    public List<City> get() {
+    public List<City> getCities() {
         Session currSession = entityManager.unwrap(Session.class);
         Query<City> query = currSession.createQuery("from City",City.class);
         List<City> list = query.getResultList();
         return list;
     }
 
-    @Override
-    public City get(int id) {
-        Session currSession = entityManager.unwrap(Session.class);
-        City city = currSession.get(City.class,id);
-        return city;
-    }
 
     // Custom get city from the name on it, can be repeated so get first?
     @Override

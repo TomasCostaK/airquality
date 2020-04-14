@@ -23,8 +23,8 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public List<City> get() {
-        return cityService.get();
+    public List<City> getCities() {
+        return cityService.getCities();
     }
 
     @DeleteMapping("/search/{id}")
