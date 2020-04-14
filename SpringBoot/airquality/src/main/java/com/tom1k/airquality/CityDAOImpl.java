@@ -2,6 +2,8 @@ package com.tom1k.airquality;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,17 @@ public class CityDAOImpl implements CityDAO {
         Session currSession = entityManager.unwrap(Session.class);
         Query query = currSession.createQuery("select c from City c where name = ?1");
         query.setParameter(1,name);
-        City city = (City) query.getSingleResult();
+
+        try{
+            City city = (City) query.getSingleResult();
+            return city;
+        }catch (NoResultException e) {
+            //Call à api
+            System.out.println(e);
+            System.out.println("City not on Cache, fetching.");
+
+        }
+        City city = new City();
         return city;
     }
 
