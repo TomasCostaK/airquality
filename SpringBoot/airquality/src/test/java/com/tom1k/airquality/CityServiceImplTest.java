@@ -10,9 +10,6 @@ class CityServiceImplTest {
     void get() {
     }
 
-    @Test
-    void testGet() {
-    }
 
     @Test
     void testGet1() {

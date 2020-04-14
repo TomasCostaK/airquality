@@ -16,12 +16,6 @@ public class CityServiceImpl implements CityService{
         return cityDAO.get();
     }
 
-    @Transactional
-    @Override
-    public City get(int id) {
-        return cityDAO.get(id);
-    }
-
     //aqui verificar em cache primeiro
     @Transactional
     @Override
