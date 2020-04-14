@@ -32,8 +32,9 @@ public class CityDAOImpl implements CityDAO {
     @Override
     public City get(String name) {
         Session currSession = entityManager.unwrap(Session.class);
-        Query<City> query = currSession.createQuery("select " + name + "from City",City.class);
-        City city = query.getSingleResult();
+        Query query = currSession.createQuery("select c from City c where name = ?1");
+        query.setParameter(1,name);
+        City city = (City) query.getSingleResult();
         return city;
     }
 
