@@ -35,10 +35,5 @@ public class CityController {
         return "City removed with id "+id;
     }
 
-    @PutMapping("/search")
-    public City update(@RequestBody City employee) {
-        cityService.save(employee);
-        return employee;
-    }
 
 }
