@@ -30,8 +30,7 @@ public class CityDAOImpl implements CityDAO {
     public List<City> getCities() {
         Session currSession = entityManager.unwrap(Session.class);
         Query<City> query = currSession.createQuery("from City",City.class);
-        List<City> list = query.getResultList();
-        return list;
+        return query.getResultList();
     }
 
 
@@ -47,14 +46,11 @@ public class CityDAOImpl implements CityDAO {
             return city;
         }catch (NoResultException e) {
             //Call à api
-            System.out.println("City not on Cache, fetching.");
-
             //If the code didnt have in cache, we must run a call for our api and then return the city we have created
             try {
                 city = sendGET(name);
                 return city;
             }catch (Exception e2){ //there was a problem getting the city, so it doesnt exist in the external API, so we return an error
-                System.out.println(e2);
             }
             //The database should clear itself to keep fewer items in cache
         }
@@ -63,20 +59,17 @@ public class CityDAOImpl implements CityDAO {
     }
 
     private City sendGET(String name) throws Exception {
-        String URL_FINAL = GET_URL + "/" + name + "/?token=" + TOKEN;
-        System.out.println(URL_FINAL);
-        URL obj = new URL(URL_FINAL);
+        String url_final = GET_URL + "/" + name + "/?token=" + TOKEN;
+        URL obj = new URL(url_final);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
         int responseCode = con.getResponseCode();
-        System.out.println("GET Response Code :: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) { // success
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     con.getInputStream()));
             String inputLine;
-            StringBuffer response = new StringBuffer();
-
+            StringBuilder response = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -85,31 +78,30 @@ public class CityDAOImpl implements CityDAO {
             // print result
 
             //Parse to JSON
-            JSONObject json_obj = new JSONObject(response.toString());
-            int aqi = json_obj.getJSONObject("data").getInt("aqi");
-            String dominentpol = json_obj.getJSONObject("data").getString("dominentpol");
-            int pm25, pm10;
+            JSONObject jsonObj = new JSONObject(response.toString());
+            int aqi = jsonObj.getJSONObject("data").getInt("aqi");
+            String dominentpol = jsonObj.getJSONObject("data").getString("dominentpol");
+            int pm25;
+            int pm10;
 
             try{
-                pm25 = json_obj.getJSONObject("data").getJSONObject("iaqi").getJSONObject("pm25").getInt("v");
-                pm10 = json_obj.getJSONObject("data").getJSONObject("iaqi").getJSONObject("pm10").getInt("v");
+                pm25 = jsonObj.getJSONObject("data").getJSONObject("iaqi").getJSONObject("pm25").getInt("v");
+                pm10 = jsonObj.getJSONObject("data").getJSONObject("iaqi").getJSONObject("pm10").getInt("v");
             } catch (JSONException e){
                 pm25 = 0;
                 pm10 = 0;
             }
 
             //Chamar
-            City city_json = new City();
-            city_json.setName(name);
-            city_json.setAqi(aqi);
-            city_json.setPm10(pm10);
-            city_json.setPm25(pm25);
-            city_json.setDominentpol(dominentpol);
-            save(city_json);
-            return city_json;
+            City cityJson = new City();
+            cityJson.setName(name);
+            cityJson.setAqi(aqi);
+            cityJson.setPm10(pm10);
+            cityJson.setPm25(pm25);
+            cityJson.setDominentpol(dominentpol);
+            save(cityJson);
+            return cityJson;
 
-        } else {
-            System.out.println("GET request didnt work");
         }
         return null;
 

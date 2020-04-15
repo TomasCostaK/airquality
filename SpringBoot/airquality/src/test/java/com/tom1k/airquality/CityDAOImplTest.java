@@ -1,28 +1,23 @@
 package com.tom1k.airquality;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
 class CityDAOImplTest {
 
-    @Test
-    void get() {
-    }
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Autowired
+    private CityDAO cityDAO;
 
     @Test
-    void testGet() {
-    }
+    void whenFind_returnCity(){
 
-    @Test
-    void testGet1() {
-    }
-
-    @Test
-    void save() {
-    }
-
-    @Test
-    void delete() {
     }
 }

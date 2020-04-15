@@ -11,9 +11,10 @@ class AirqualityApplicationTests {
 	}
 
 	// Test class added ONLY to cover main() invocation not covered by application tests.
-	@Test
+	//Removed this test, since there would already be an app running on port 8080
+	/*@Test
 	public void main() {
 		AirqualityApplication.main(new String[] {});
-	}
+	}*/
 
 }
