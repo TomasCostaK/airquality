@@ -71,6 +71,7 @@ class CityServiceImplTest {
         city.setId(100);
         city.setName("Teste1");
         cityService.save(city);
+        assertThat(cityService.get("Teste1")).isNull();
     }
 
     @Test

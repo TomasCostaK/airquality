@@ -9,6 +9,6 @@ class CityTest {
     void testToString() {
         City city = new City();
         city.setName("Porto");
-        assertThat(city.toString().equals("City{id=null, name='Porto', aqi=0, pm10=0, pm25=0, dominentpol='null'}"));
+        assertThat(city.toString()).isEqualTo("City{id=null, name='Porto', aqi=0, pm10=0, pm25=0, dominentpol='null'}");
     }
 }

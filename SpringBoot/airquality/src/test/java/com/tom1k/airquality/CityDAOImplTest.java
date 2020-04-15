@@ -16,8 +16,4 @@ class CityDAOImplTest {
     @Autowired
     private CityDAO cityDAO;
 
-    @Test
-    void whenFind_returnCity(){
-
-    }
 }
