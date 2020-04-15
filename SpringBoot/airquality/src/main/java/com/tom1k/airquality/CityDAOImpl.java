@@ -3,6 +3,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import org.json.*;
+
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,8 @@ public class CityDAOImpl implements CityDAO {
 
             //If the code didnt have in cache, we must run a call for our api and then return the city we have created
             try {
-                sendGET(name);
+                city = sendGET(name);
+                return city;
             }catch (Exception e2){ //there was a problem getting the city, so it doesnt exist in the external API, so we return an error
                 System.out.println(e2);
             }
@@ -59,7 +62,7 @@ public class CityDAOImpl implements CityDAO {
         return city;
     }
 
-    private void sendGET(String name) throws Exception {
+    private City sendGET(String name) throws Exception {
         String URL_FINAL = GET_URL + "/" + name + "/?token=" + TOKEN;
         System.out.println(URL_FINAL);
         URL obj = new URL(URL_FINAL);
@@ -103,10 +106,12 @@ public class CityDAOImpl implements CityDAO {
             city_json.setPm25(pm25);
             city_json.setDominentpol(dominentpol);
             save(city_json);
+            return city_json;
 
         } else {
             System.out.println("GET request didnt work");
         }
+        return null;
 
     }
 

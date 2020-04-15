@@ -3,9 +3,7 @@ import React, { Component } from "react";
 import { Container, Row} from "reactstrap";
 
 const API = 'http://localhost:8080/api/';
-const DEFAULT_QUERY = 'all_streets_city/';
-const STATS_QUERY = 'statistics/';
-const GRAPH_STATS = 'charts/';
+const DEFAULT_QUERY = 'search/';
 
 class Stats extends React.Component {
     render() {
@@ -18,23 +16,32 @@ class Stats extends React.Component {
     }
 }
 
-export default class Dashboard extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
+export default function Dashboard() {
+    const [name,setName] = React.useState("");
+    const [aqi,setAqi] = React.useState("");
+    const [pm10,setPm10] = React.useState("");
+    const [pm25,setPm25] = React.useState("");
+    const [domi,setDomi] = React.useState("");
 
-        };
+    const handleNameChange = event => setName(event.target.value());
+
+    async function fetchCity(toInput){
+        alert("Going to fetch");
+        let response = await fetch("http://localhost:8080/api/cities" , {
+            method : "GET",
+            mode: "cors",
+            cache: "no-cache"
+        })
+        console.log(response)
+        let body = await response.json();
     }
 
-    componentDidMount() {
-
+    const handleSubmit = variables => {
+        const input = {name};
+        fetchCity(input);
     }
 
-    fetchCity(name){
 
-    }
-
-    render() {
         return (
 
             <div
@@ -52,20 +59,19 @@ export default class Dashboard extends React.Component {
                     <Row style={{alignContent:'center',justifyContent:'center',border:10,borderColor:'white'}}>
                         <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', fontSize:30}}>Analytics for city:</p>
                     </Row>
-                    <p style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}><span>City name: </span> <input name="text" type="text" placeholder="Search" /><button>Search</button></p>
+                    <p style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}><span>City name: </span> <input name="text" onClick={handleSubmit} type="text" placeholder="Search" /><button>Search</button></p>
 
 
-                    <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', marginTop:80, textAlign:'center',fontSize:24}}>{'Cidade X'}</p>
+                    <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', marginTop:80, textAlign:'center',fontSize:24}}>{'Cidade'}</p>
                     <div style={{display:'flex',flex:1, flexDirection:'row' , justifyContent:'space-between',alignContent:'space-between'}}>
-                        <Stats style={{flex:1}} stat_name="Average Quality Index" number={3}/>
-                        <Stats style={{flex:1}} stat_name="Dominent Pol" number={3}/>
-                        <Stats style={{flex:1}} stat_name="PM2.5" number={4}/>
-                        <Stats style={{flex:1}} stat_name="PM1.0" number={5}/>
+                        <Stats style={{flex:1}} stat_name="Average Quality Index" number={0}/>
+                        <Stats style={{flex:1}} stat_name="Dominent Pol" number={0}/>
+                        <Stats style={{flex:1}} stat_name="PM2.5" number={0}/>
+                        <Stats style={{flex:1}} stat_name="PM1.0" number={0}/>
 
                     </div>
                 </Container>
             </div>
         )
-    }
 
 }

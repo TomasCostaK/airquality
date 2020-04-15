@@ -17,11 +17,13 @@ public class CityController {
         return city;
     }
 
+    @CrossOrigin
     @GetMapping("/search")
     public City get(@RequestParam(value = "name", defaultValue = "Porto")String city) {
         return cityService.get(city);
     }
 
+    @CrossOrigin
     @GetMapping("/cities")
     public List<City> getCities() {
         return cityService.getCities();
