@@ -10,4 +10,10 @@ class AirqualityApplicationTests {
 	void contextLoads() {
 	}
 
+	// Test class added ONLY to cover main() invocation not covered by application tests.
+	@Test
+	public void main() {
+		AirqualityApplication.main(new String[] {});
+	}
+
 }
