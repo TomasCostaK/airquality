@@ -12,7 +12,7 @@ public class CityController {
     private CityService cityService;
 
     @PostMapping("/search")
-    public City save(@RequestBody City city) {
+    public City save(@RequestBody City city) throws Exception{
         cityService.save(city);
         return city;
     }
@@ -30,9 +30,8 @@ public class CityController {
     }
 
     @DeleteMapping("/search/{id}")
-    public String delete(@PathVariable int id) {
-        cityService.delete(id);
-        return "City removed with id "+id;
+    public boolean delete(@PathVariable int id) throws Exception{
+        return cityService.delete(id);
     }
 
 

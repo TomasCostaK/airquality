@@ -7,7 +7,7 @@ public interface CityDAO {
 
     City get(String name);
 
-    void save(City city);
+    City save(City city) throws Exception;
 
-    void delete(int id);
+    boolean delete(int id) throws Exception;
 }

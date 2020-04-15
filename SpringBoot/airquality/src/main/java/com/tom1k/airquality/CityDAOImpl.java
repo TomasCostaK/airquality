@@ -116,15 +116,21 @@ public class CityDAOImpl implements CityDAO {
     }
 
     @Override
-    public void save(City city) {
+    public City save(City city) throws Exception{
         Session currSession = entityManager.unwrap(Session.class);
         currSession.saveOrUpdate(city);
+        return city;
     }
 
     @Override
-    public void delete(int id) {
-        Session currSession = entityManager.unwrap(Session.class);
-        City city = currSession.get(City.class,id);
-        currSession.delete(city);
+    public boolean delete(int id) throws Exception{
+        try {
+            Session currSession = entityManager.unwrap(Session.class);
+            City city = currSession.get(City.class,id);
+            currSession.delete(city);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 }

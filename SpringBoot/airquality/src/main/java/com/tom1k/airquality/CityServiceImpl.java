@@ -25,13 +25,13 @@ public class CityServiceImpl implements CityService{
 
     @Transactional
     @Override
-    public void save(City city) {
-        cityDAO.save(city);
+    public City save(City city) throws Exception{
+        return cityDAO.save(city);
     }
 
     @Transactional
     @Override
-    public void delete(int id) {
-        cityDAO.delete(id);
+    public boolean delete(int id) throws Exception{
+        return cityDAO.delete(id);
     }
 }

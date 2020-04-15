@@ -1,6 +1,5 @@
 package com.tom1k.airquality;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,7 +34,7 @@ class CityServiceImplTest {
     private CityServiceImpl cityService;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() throws Exception {
         City aveiro = new City();
         aveiro.setName("Aveiro");
         aveiro.setAqi(17);
@@ -44,6 +42,7 @@ class CityServiceImplTest {
         City braga = new City();
         braga.setName("Braga");
         braga.setAqi(12);
+        braga.setId(123);
 
         List<City> cities = Arrays.asList(aveiro, braga);
 
@@ -51,6 +50,7 @@ class CityServiceImplTest {
         Mockito.when(cityDAO.get(braga.getName())).thenReturn(braga);
         Mockito.when(cityDAO.get("fake_value")).thenReturn(null);
         Mockito.when(cityDAO.getCities()).thenReturn(cities);
+        Mockito.when(cityDAO.delete(123)).thenReturn(true);
     }
 
     @Test
@@ -60,14 +60,49 @@ class CityServiceImplTest {
     }
 
     @Test
-    void testGet1() {
+    void assert_invalidname(){
+        City found = cityService.get("cidadex");
+        assertThat(found).isNull();
     }
 
     @Test
-    void save() {
+    void obtain_afterSave() throws Exception{
+        City city = new City();
+        city.setId(100);
+        city.setName("Teste1");
+        cityService.save(city);
     }
 
     @Test
-    void delete() {
+    void assert_notdeleting_nonexistent() throws Exception{
+        boolean worked = cityService.delete(69);
+        assertThat(worked).isFalse();
     }
+
+    @Test
+    void assert_delete_notfoundafter() throws Exception{
+        City city_before = cityService.get("Braga");
+        assertThat(city_before).isNotNull();
+
+        //declared as 100 in beforeeach
+        boolean worked = cityService.delete(123);
+        assertThat(worked).isTrue();
+
+        //cityService.delete(100);
+
+        //City city_found = cityService.get("TestUnit");
+        //assertThat(city_found).isNull();
+    }
+
+    @Test
+    void obtain_all() throws Exception{
+        City city = new City();
+        city.setName("cidade");
+        city.setId(100);
+        cityService.save(city);
+
+        List<City> found = cityService.getCities();
+        assertThat(found).isNotNull();
+    }
+
 }
