@@ -58,7 +58,7 @@ public class CityDAOImpl implements CityDAO {
         return city;
     }
 
-    private City sendGET(String name) throws Exception {
+    public City sendGET(String name) throws Exception {
         String url_final = GET_URL + "/" + name + "/?token=" + TOKEN;
         URL obj = new URL(url_final);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -93,18 +93,22 @@ public class CityDAOImpl implements CityDAO {
             }
 
             //Chamar
-            City cityJson = new City();
-            cityJson.setName(name);
-            cityJson.setAqi(aqi);
-            cityJson.setPm10(pm10);
-            cityJson.setPm25(pm25);
-            cityJson.setDominentpol(dominentpol);
+            City cityJson = createCity(name,aqi,pm10,pm25,dominentpol);
             save(cityJson);
-            return cityJson;
 
         }
         return null;
 
+    }
+
+    public City createCity(String name, int aqi, int pm10, int pm25, String dominentpol){
+        City cityJson = new City();
+        cityJson.setName(name);
+        cityJson.setAqi(aqi);
+        cityJson.setPm10(pm10);
+        cityJson.setPm25(pm25);
+        cityJson.setDominentpol(dominentpol);
+        return cityJson;
     }
 
     @Override
