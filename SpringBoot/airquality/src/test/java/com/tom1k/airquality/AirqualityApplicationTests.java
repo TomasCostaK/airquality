@@ -10,7 +10,7 @@ class AirqualityApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertThat("Teste").isEqualTo("Teste");
+
 	}
 
 	// Test class added ONLY to cover main() invocation not covered by application tests.
