@@ -48,57 +48,50 @@ public class CityDAOImpl implements CityDAO {
             //Call à api
             //If the code didnt have in cache, we must run a call for our api and then return the city we have created
             try {
-                city = sendGET(name);
-                return city;
+                String url_final = GET_URL + "/" + name + "/?token=" + TOKEN;
+                URL obj = new URL(url_final);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("User-Agent", USER_AGENT);
+                int responseCode = con.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) { // success
+                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                            con.getInputStream()));
+                    String inputLine;
+                    StringBuilder response = new StringBuilder();
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+
+                    // print result
+
+                    //Parse to JSON
+                    JSONObject jsonObj = new JSONObject(response.toString());
+                    int aqi = jsonObj.getJSONObject("data").getInt("aqi");
+                    String dominentpol = jsonObj.getJSONObject("data").getString("dominentpol");
+                    int pm25;
+                    int pm10;
+
+                    try{
+                        pm25 = jsonObj.getJSONObject("data").getJSONObject("iaqi").getJSONObject("pm25").getInt("v");
+                        pm10 = jsonObj.getJSONObject("data").getJSONObject("iaqi").getJSONObject("pm10").getInt("v");
+                    } catch (JSONException jsonE){
+                        pm25 = 0;
+                        pm10 = 0;
+                    }
+
+                    //Chamar
+                    City cityJson = createCity(name,aqi,pm10,pm25,dominentpol);
+                    save(cityJson);
+                    return cityJson;
+                }
             }catch (Exception e2){ //there was a problem getting the city, so it doesnt exist in the external API, so we return an error
             }
             //The database should clear itself to keep fewer items in cache
         }
         //return null caso nao haja cidade na API
         return city;
-    }
-
-    public City sendGET(String name) throws Exception {
-        String url_final = GET_URL + "/" + name + "/?token=" + TOKEN;
-        URL obj = new URL(url_final);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("User-Agent", USER_AGENT);
-        int responseCode = con.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) { // success
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    con.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            // print result
-
-            //Parse to JSON
-            JSONObject jsonObj = new JSONObject(response.toString());
-            int aqi = jsonObj.getJSONObject("data").getInt("aqi");
-            String dominentpol = jsonObj.getJSONObject("data").getString("dominentpol");
-            int pm25;
-            int pm10;
-
-            try{
-                pm25 = jsonObj.getJSONObject("data").getJSONObject("iaqi").getJSONObject("pm25").getInt("v");
-                pm10 = jsonObj.getJSONObject("data").getJSONObject("iaqi").getJSONObject("pm10").getInt("v");
-            } catch (JSONException e){
-                pm25 = 0;
-                pm10 = 0;
-            }
-
-            //Chamar
-            City cityJson = createCity(name,aqi,pm10,pm25,dominentpol);
-            save(cityJson);
-
-        }
-        return null;
-
     }
 
     public City createCity(String name, int aqi, int pm10, int pm25, String dominentpol){
