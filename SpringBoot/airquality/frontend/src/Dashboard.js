@@ -34,6 +34,7 @@ export default function Dashboard() {
         })
         console.log(response)
         let body = await response.json();
+        console.log(body)
     }
 
     const handleSubmit = variables => {
