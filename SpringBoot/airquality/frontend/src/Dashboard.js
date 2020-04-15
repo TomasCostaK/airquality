@@ -2,15 +2,11 @@ import React, { Component } from "react";
 // reactstrap components
 import { Container, Row} from "reactstrap";
 
-const API = 'http://localhost:8080/api/';
-const DEFAULT_QUERY = 'search/';
-
 class Stats extends React.Component {
     render() {
         return (
             <div>
-                <h3 style={{color:'rgba(0,0,0,0.6)', fontWeight:'bolder', fontSize:20}}>{this.props.stat_name}</h3>
-                <h4 style={{color:'rgba(0,0,0,0.6)', fontWeight:'bolder', textAlign:'center' ,fontSize:22}}> {this.props.number} </h4>
+                <h3 style={{color:'rgba(0,0,0,0.6)', fontWeight:'bolder', fontSize:20}}>{this.props.stat_name + ': ' + this.props.number}</h3>
             </div>
         );
     }
@@ -23,23 +19,27 @@ export default function Dashboard() {
     const [pm25,setPm25] = React.useState("");
     const [domi,setDomi] = React.useState("");
 
-    const handleNameChange = event => setName(event.target.value());
+    const handleNameChange = event => setName(event.target.value);
 
     async function fetchCity(toInput){
-        alert("Going to fetch");
-        let response = await fetch("http://localhost:8080/api/cities" , {
+        let response = await fetch("http://localhost:8080/api/search?name=" + name , {
             method : "GET",
             mode: "cors",
             cache: "no-cache"
         })
-        console.log(response)
-        let body = await response.json();
-        console.log(body)
+        try {
+            let body = await response.json();
+            setAqi(body.aqi)
+            setPm10(body.pm10)
+            setPm25(body.pm25)
+            setDomi(body.dominentpol)
+        } catch (e) {
+            alert("The city selected doesnt have available data in the API. Try another one!")
+        }
     }
 
     const handleSubmit = variables => {
-        const input = {name};
-        fetchCity(input);
+        fetchCity(name);
     }
 
 
@@ -57,18 +57,17 @@ export default function Dashboard() {
                 }}
             >
                 <Container style={{display:'flex',flex:1,flexDirection:'column',maringTop:30}}>
+                    <img src="label.png" alt="AQI Index (The closer to 0, the best)" />
                     <Row style={{alignContent:'center',justifyContent:'center',border:10,borderColor:'white'}}>
-                        <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', fontSize:30}}>Analytics for city:</p>
+                        <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', fontSize:30}}>{'Analytics for city: ' + name}</p>
                     </Row>
-                    <p style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}><span>City name: </span> <input name="text" onClick={handleSubmit} type="text" placeholder="Search" /><button>Search</button></p>
+                    <p style={{color:'rgba(0,0,0,0.6)', fontSize:13, marginTop:5, fontWeight:'bolder'}}><span>City name: </span> <input onChange={handleNameChange} name="text" type="text" placeholder="Search" /><button style={{color:'white',backgroundColor:'blue'}} onClick={handleSubmit}>Search</button></p>
 
-
-                    <p style={{color:'rgba(0,0,0,0.6)', fontWeight:'bold', marginTop:80, textAlign:'center',fontSize:24}}>{'Cidade'}</p>
-                    <div style={{display:'flex',flex:1, flexDirection:'row' , justifyContent:'space-between',alignContent:'space-between'}}>
-                        <Stats style={{flex:1}} stat_name="Average Quality Index" number={0}/>
-                        <Stats style={{flex:1}} stat_name="Dominent Pol" number={0}/>
-                        <Stats style={{flex:1}} stat_name="PM2.5" number={0}/>
-                        <Stats style={{flex:1}} stat_name="PM1.0" number={0}/>
+                    <div style={{display:'flex',flex:1, flexDirection:'column' , justifyContent:'space-between',alignContent:'space-between'}}>
+                        <Stats style={{flex:1}} stat_name="Average Quality Index" number={aqi}/>
+                        <Stats style={{flex:1}} stat_name="Dominant Pollutant" number={domi}/>
+                        <Stats style={{flex:1}} stat_name="PM2.5" number={pm25}/>
+                        <Stats style={{flex:1}} stat_name="PM1.0" number={pm10}/>
 
                     </div>
                 </Container>
